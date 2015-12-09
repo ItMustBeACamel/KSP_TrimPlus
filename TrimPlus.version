@@ -1,0 +1,21 @@
+{
+   "URL" : "https://raw.githubusercontent.com/ItMustBeACamel/KSP_TrimPlus/master/TrimPlus.version",
+   "NAME" : "TrimPlus",
+   "GITHUB" : {
+      "REPOSITORY" : "KSP_TrimPlus",
+      "USERNAME" : "ItMustBeACamel"
+   },
+   "VERSION" : {
+      "MAJOR" : 1,
+	  "MINOR" : 0,
+	  "PATCH" : 0,
+	  "BUILD" : 0
+   },
+   "DOWNLOAD" : "https://github.com/ItMustBeACamel/KSP_TrimPlus/releases",
+   "KSP_VERSION" : {
+      "MAJOR" : 1,
+      "MINOR" : 0,
+      "PATCH" : 5
+   }
+}
+
