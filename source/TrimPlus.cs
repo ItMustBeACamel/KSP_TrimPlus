@@ -35,6 +35,18 @@ namespace TrimPlus
         float trimRollRate = 0.1f;
         float trimYawRate = 0.1f;
         
+        bool setTrimPitchPressed = false;
+        bool setTrimRollPressed = false;
+        bool setTrimYawPressed = false;
+
+        float savedPitchInput = 0f;
+        float savedRollInput = 0f;
+        float savedYawInput = 0f;
+
+        //float savedPitchTrim = 0f;
+        //float savedRollTrim = 0f;
+        //float savedYawTrim = 0f;
+
         public void Awake()
         {
             SetDefaultBindings();
@@ -168,14 +180,86 @@ namespace TrimPlus
             if (Bindings[(int)BindingName.RESET_TRIM_YAW].GetKey() || Bindings[(int)BindingName.RESET_TRIM].GetKey())
                 FlightInputHandler.state.yawTrim = 0.0f;
 
-            if (Bindings[(int)BindingName.SET_TRIM_PITCH].GetKeyDown() || Bindings[(int)BindingName.SET_TRIM].GetKeyDown())
-                FlightInputHandler.state.pitchTrim = FlightInputHandler.state.pitch;
+            
+            //if (Bindings[(int)BindingName.SET_TRIM_PITCH].GetKeyDown() || Bindings[(int)BindingName.SET_TRIM].GetKeyDown())
+            //    FlightInputHandler.state.pitchTrim = FlightInputHandler.state.pitch;
 
-            if (Bindings[(int)BindingName.SET_TRIM_ROLL].GetKeyDown() || Bindings[(int)BindingName.SET_TRIM].GetKeyDown())
-                FlightInputHandler.state.rollTrim = FlightInputHandler.state.roll;//Mathf.Clamp(/*FlightInputHandler.state.rollTrim +*/ FlightInputHandler.state.roll, -1f, 1f);
+            //if (Bindings[(int)BindingName.SET_TRIM_ROLL].GetKeyDown() || Bindings[(int)BindingName.SET_TRIM].GetKeyDown())
+            //    FlightInputHandler.state.rollTrim = FlightInputHandler.state.roll;//Mathf.Clamp(/*FlightInputHandler.state.rollTrim +*/ FlightInputHandler.state.roll, -1f, 1f);
 
-            if (Bindings[(int)BindingName.SET_TRIM_YAW].GetKeyDown() || Bindings[(int)BindingName.SET_TRIM].GetKeyDown())
-                FlightInputHandler.state.yawTrim = FlightInputHandler.state.yaw;//Mathf.Clamp(/*FlightInputHandler.state.yawTrim +*/ FlightInputHandler.state.yaw, -1f, 1f);
+            //if (Bindings[(int)BindingName.SET_TRIM_YAW].GetKeyDown() || Bindings[(int)BindingName.SET_TRIM].GetKeyDown())
+            //    FlightInputHandler.state.yawTrim = FlightInputHandler.state.yaw;//Mathf.Clamp(/*FlightInputHandler.state.yawTrim +*/ FlightInputHandler.state.yaw, -1f, 1f);
+            
+            if(!setTrimPitchPressed && (Bindings[(int)BindingName.SET_TRIM_PITCH].GetKey() || Bindings[(int)BindingName.SET_TRIM].GetKey()))
+            {   
+                setTrimPitchPressed = true;
+                savedPitchInput = FlightInputHandler.state.pitch;
+                //savedPitchTrim = FlightInputHandler.state.pitchTrim;
+                //Debug.Log("set trim pitch - input: " + savedPitchInput);
+            }
+
+            if (setTrimPitchPressed && !(Bindings[(int)BindingName.SET_TRIM_PITCH].GetKey() || Bindings[(int)BindingName.SET_TRIM].GetKey()))
+            {
+
+                setTrimPitchPressed = false;
+                //Debug.Log("set trim pitch - end");
+            }
+
+            //////
+
+            if (!setTrimRollPressed && (Bindings[(int)BindingName.SET_TRIM_ROLL].GetKey() || Bindings[(int)BindingName.SET_TRIM].GetKey()))
+            {
+                setTrimRollPressed = true;
+                savedRollInput = FlightInputHandler.state.roll;
+                //savedPitchTrim = FlightInputHandler.state.pitchTrim;
+                //Debug.Log("set roll pitch - input: " + savedRollInput);
+            }
+
+            if (setTrimRollPressed && !(Bindings[(int)BindingName.SET_TRIM_ROLL].GetKey() || Bindings[(int)BindingName.SET_TRIM].GetKey()))
+            {
+
+                setTrimRollPressed = false;
+                //Debug.Log("set trim roll - end");
+            }
+
+
+            //////
+
+            if (!setTrimYawPressed && (Bindings[(int)BindingName.SET_TRIM_YAW].GetKey() || Bindings[(int)BindingName.SET_TRIM].GetKey()))
+            {
+                setTrimYawPressed = true;
+                savedYawInput = FlightInputHandler.state.yaw;
+                //Debug.Log("set yaw pitch - input: " + savedYawInput);
+            }
+
+            if (setTrimYawPressed && !(Bindings[(int)BindingName.SET_TRIM_YAW].GetKey() || Bindings[(int)BindingName.SET_TRIM].GetKey()))
+            {
+
+                setTrimYawPressed = false;
+                //Debug.Log("set trim yaw - end");
+            }
+
+            if (setTrimPitchPressed)
+            {
+                float delta = savedPitchInput - FlightInputHandler.state.pitch;
+                FlightInputHandler.state.pitchTrim = Mathf.Clamp(FlightInputHandler.state.pitchTrim + delta, -1, 1);
+                //Debug.Log("delta: " + delta);
+            }
+
+            if (setTrimRollPressed)
+            {
+                float delta = savedRollInput - FlightInputHandler.state.roll;
+                FlightInputHandler.state.rollTrim = Mathf.Clamp(FlightInputHandler.state.rollTrim + delta, -1, 1);
+                //Debug.Log("delta: " + delta);
+            }
+
+            if (setTrimYawPressed)
+            {
+                float delta = savedYawInput - FlightInputHandler.state.yaw;
+                FlightInputHandler.state.yawTrim = Mathf.Clamp(FlightInputHandler.state.yawTrim + delta, -1, 1);
+                //Debug.Log("delta: " + delta);
+            }
+
 
         }
 
