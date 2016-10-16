@@ -8,24 +8,24 @@
    "VERSION" : {
       "MAJOR" : 1,
 	  "MINOR" : 2,
-	  "PATCH" : 0,
+	  "PATCH" : 1,
 	  "BUILD" : 0
    },
    "DOWNLOAD" : "https://github.com/ItMustBeACamel/KSP_TrimPlus/releases",
    "KSP_VERSION" : {
       "MAJOR" : 1,
-      "MINOR" : 1,
-      "PATCH" : 2
+      "MINOR" : 2,
+      "PATCH" : 0
    },
    "KSP_VERSION_MIN" : {
       "MAJOR" : 1,
-      "MINOR" : 1,
-      "PATCH" : 2
+      "MINOR" : 2,
+      "PATCH" : 0
    },
    "KSP_VERSION_MAX" : {
       "MAJOR" : 1,
-      "MINOR" : 1,
-      "PATCH" : 3
+      "MINOR" : 2,
+      "PATCH" : 0
    }
 }
 
