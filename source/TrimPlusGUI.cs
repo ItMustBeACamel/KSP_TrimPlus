@@ -44,13 +44,13 @@ namespace TrimPlus
                         {
                             if (listeningForPrimary)
                             {
-                                listeningFor.primary = code;
+                                listeningFor.primary = new KeyCodeExtended(code);
                                 listeningFor = null;
                                 break;
                             }
                             else
                             {
-                                listeningFor.secondary = code;
+                                listeningFor.secondary = new KeyCodeExtended(code);
                                 listeningFor = null;
                                 break;
                             }
@@ -117,8 +117,8 @@ namespace TrimPlus
 
                     if (GUILayout.Button("x", GUILayout.ExpandWidth(false)))
                     {
-                        binding.primary = KeyCode.None;
-                        binding.secondary = KeyCode.None;
+                        binding.primary = new KeyCodeExtended(KeyCode.None);
+                        binding.secondary = new KeyCodeExtended(KeyCode.None);
                     }
 
                     GUILayout.EndHorizontal();
